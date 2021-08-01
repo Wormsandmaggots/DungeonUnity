@@ -11,7 +11,12 @@ public class Character_menu : MonoBehaviour
     public Image characterSelectionSprite;
     public Image weaponSprite;
     public RectTransform xpBar;
-
+    public Animator MenuAnimator;
+    public bool MenuShowing = false;
+    private void Start()
+    {
+        MenuAnimator = GetComponent<Animator>();
+    }
     public void onArrowClick(bool right)
     {
         if(right)
@@ -80,5 +85,19 @@ public class Character_menu : MonoBehaviour
             xpBar.localScale = new Vector3(completionRatio, 1, 1);
             xpText.text = currXpIntoLevel.ToString() + "/" + diff;
         }
+    }
+    public virtual void MenuAnimation()
+    {
+        if(MenuShowing)
+        {
+            MenuAnimator.SetTrigger("hide");
+            MenuShowing = false;
+        }
+        else
+        {
+            MenuAnimator.SetTrigger("show");
+            MenuShowing = true;
+        }
+        
     }
 }
